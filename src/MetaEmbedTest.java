@@ -3,8 +3,13 @@ import java.util.*;
 public class MetaEmbedTest {
 
     public static void main(String[] args) {
-        runLocalEmbed();
-        runFolderCounter();
+        try {
+            runLocalEmbed();
+            runFolderCounter();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
