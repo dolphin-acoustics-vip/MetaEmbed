@@ -2,7 +2,40 @@ import java.io.*;
 import java.util.*;
 
 public class PathFinder {
-    
+
+    /**
+     * Splits the provided URL so that only location, species, source and encounter
+     * information remains. Stores this in a list so it can be accessed elsewhere.
+     * 
+     * @param URL - OneDrive URL of folder containing the CSV
+     * @return list with relevant folder informaton.
+     */
+    public ArrayList<String> readOneDrivePath(String URL) {
+        ArrayList<String> folderList = new ArrayList<>();
+
+        String trimmedURL = URL.split("MASTER%20FOLDER%2FSpecies%20Folder%2F")[1];
+        trimmedURL = trimmedURL.split("&viewid")[0];
+
+        String[] directory = trimmedURL.split("%2F");
+
+        for (String folder : directory) {
+
+            if (folder.contains("%5F")) {
+                String newFolder = folder.replace("%5F", "_");
+                folderList.add(newFolder);
+            
+            } else if (folder.contains("%20")) {
+                String newFolder = folder.replace("%20", " ");
+                folderList.add(newFolder);
+
+            } else {
+                folderList.add(folder);
+            }
+        }
+
+        return folderList;
+    }
+
     /**
      * Takes the path of the CSV file and stores its folder names in a list.
      * 
@@ -23,30 +56,6 @@ public class PathFinder {
                 folderList.add(folder);
             }
         }
-        return folderList;
-    }
-
-    /**
-     * Splits the provided URL so that only location, species, cruise and encounter
-     * information remains. Stores this in a list so it can be accessed elsewhere.
-     * 
-     * @param URL - OneDrive URL of folder containing the CSV
-     * @return list with relevant folder informaton.
-     */
-    public ArrayList<String> readOneDrivePath(String URL) {
-        ArrayList<String> folderList = new ArrayList<>();
-
-        String trimmedURL = URL.split("Species%20%28Master%20Folder%29")[1];
-        trimmedURL = trimmedURL.split("&listurl")[0];
-        //trimmedURL.replace("target", replacement);
-        //System.out.println(trimmedURL);
-
-        String[] directory = trimmedURL.split("%2F");
-
-        for (String folder : directory) {
-            folderList.add(folder);
-        }
-
         return folderList;
     }
 }

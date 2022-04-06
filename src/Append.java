@@ -14,17 +14,17 @@ public class Append {
      * @param file      - absolute file path
      * @param location  - location of the encounter
      * @param species   - dolphin species
-     * @param cruise    - cruise that collected the data
+     * @param source    - source that collected the data
      * @param encounter - name/code of the encounter
      */
-    public void embed(String file, String location, String species, String cruise, String encounter) {
+    public void embed(String file, String species, String location, String source, String encounter) {
         readToArray(file);
 
         try {
             FileWriter writer = new FileWriter(file);
-            writer.append("#Location," + location);
-            writer.append("\n" + "#Species," + species);
-            writer.append("\n" + "#Cruise," + cruise);
+            writer.append("#Species," + species);
+            writer.append("\n" + "#Location," + location);
+            writer.append("\n" + "#Source," + source);
             writer.append("\n" + "#Encounter," + encounter + "\n");
 
             for (List<String> list : records) {
